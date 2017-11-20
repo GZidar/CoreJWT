@@ -31,7 +31,7 @@ var decodedToken = JsonWebToken.Decode(tokenString, "sample secret phrase");
 ```
 
 # License
-Copyright (c) 2017 CorePDF Contributors
+Copyright (c) 2017 CoreJWT Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

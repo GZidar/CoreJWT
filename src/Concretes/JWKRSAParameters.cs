@@ -11,6 +11,7 @@ namespace CoreJWT.Concretes
         private byte[] _modulus { get; set; }
         private byte[] _firstPrime { get; set; }
         private byte[] _secondPrime { get; set; }
+        private byte[] _privateExponent { get; set; }
         private byte[] _exponent { get; set; }
         private byte[] _firstCRTExponent { get; set; }
         private byte[] _secondCRTExponent { get; set; }
@@ -40,6 +41,19 @@ namespace CoreJWT.Concretes
             set
             {
                 _secondPrime = base64urldecode(value);
+            }
+        }
+
+        public string PrivateExponent
+        {
+            get
+            {
+                return base64urlencode(_privateExponent);
+            }
+
+            set
+            {
+                _privateExponent = base64urldecode(value);
             }
         }
 
@@ -111,7 +125,7 @@ namespace CoreJWT.Concretes
         public string ToXml()
         {
             if (string.IsNullOrEmpty(Modulus))
-                return string.Format("<RSAKeyValue><D>{0}</<D><P>{1}</P></RSAKeyValue>", Exponent, FirstPrime);
+                return string.Format("<RSAKeyValue><D>{0}</<D><P>{1}</P></RSAKeyValue>", PrivateExponent, FirstPrime);
             else
                 return string.Format("<RSAKeyValue><Modulus>{0}</<Modulus><Exponent>{1}</Exponent></RSAKeyValue>", Modulus, Exponent);
         }
@@ -127,7 +141,7 @@ namespace CoreJWT.Concretes
             {
                 return new RSAParameters
                 {
-                    D = _exponent,
+                    D = _privateExponent,
                     P = _firstPrime,
                     Q = _secondPrime,
                     DP = _firstCRTExponent,
@@ -145,11 +159,43 @@ namespace CoreJWT.Concretes
             }
         }
 
+        public static JWKRSAParameters FromRSA(RSAParameters rsa)
+        {
+            JWKRSAParameters result;
+
+            if (rsa.D == null)
+            {
+                // only public key information 
+                result = new JWKRSAParameters
+                {
+                    _modulus = rsa.Modulus,
+                    _exponent = rsa.Exponent
+                };
+            }
+            else
+            {
+                // contains private key information as well
+                result = new JWKRSAParameters
+                {
+                    _modulus = rsa.Modulus,
+                    _exponent = rsa.Exponent,
+                    _privateExponent = rsa.D,
+                    _firstPrime = rsa.P,
+                    _secondPrime = rsa.Q,
+                    _firstCRTExponent = rsa.DP,
+                    _secondCRTExponent = rsa.DQ,
+                    _firstCRTCoefficient = rsa.InverseQ
+                };
+            }
+
+            return result;
+        }
+
         public string Serialize()
         {
             if (string.IsNullOrEmpty(Modulus))
                 return string.Format(",\"d\":\"{0}\",\"p\":\"{1}\",\"q\":\"{2}\",\"dp\":\"{3}\",\"dq\":\"{4}\",\"qi\":\"{5}\",\"oth\":\"{6}\"",
-                    Exponent, FirstPrime, SecondPrime, FirstCRTExponent, SecondCRTExponent, FirstCRTCoefficient, OtherPrimesInfo);
+                    PrivateExponent, FirstPrime, SecondPrime, FirstCRTExponent, SecondCRTExponent, FirstCRTCoefficient, OtherPrimesInfo);
             else
                 return string.Format(",\"e\":\"{0}\",\"n\":\"{1}\"", Exponent, Modulus);
         }
