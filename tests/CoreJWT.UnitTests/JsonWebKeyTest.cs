@@ -1,5 +1,6 @@
 ﻿using CoreJWT.Concretes;
 using CoreJWT.Enumerations;
+using System.Security.Cryptography;
 using Xunit;
 
 namespace CoreJWT.UnitTests
@@ -99,5 +100,32 @@ namespace CoreJWT.UnitTests
             // Assert
             Assert.True(key1 == key2, "Keys do not match");
         }
+
+        [Fact]
+        public void SerializeAndDeserializeKey_RSAPrivateType_ExpectSuccess()
+        {
+            // Arrange
+            var key = RSA.Create(1024);
+
+            var jwk1 = new JsonWebKey
+            {
+                Type = JwaKeyType.RSA,
+                Id = "api.test.key",
+                Usage = "sig",
+                Algorithm = JwaHashAlgorithm.RS256,
+                Parameters = JWKRSAParameters.FromRSA(key.ExportParameters(true))
+            };
+
+            // Act
+            var key1 = jwk1.Serialize();
+
+            var jwt2 = JsonWebKey.Deserialize(key1);
+
+            var key2 = jwt2.Serialize();
+
+            // Assert
+            Assert.True(key1 == key2, "Keys do not match");
+        }
+
     }
 }
