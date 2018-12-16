@@ -104,6 +104,7 @@ namespace CoreJWT.Concretes
                     }
                 case JwaHashAlgorithm.RS256:
                     {
+#if NETCORE
                         using (var algorithm = RSA.Create())
                         {
                             algorithm.ImportParameters(((JWKRSAParameters)jwk.Parameters).ToRSA());
@@ -125,6 +126,31 @@ namespace CoreJWT.Concretes
                                 }
                             }
                         }
+#endif
+
+#if NETFRAMEWORK
+                        using (var algorithm = new RSACryptoServiceProvider())
+                        {
+                            algorithm.ImportParameters(((JWKRSAParameters)jwk.Parameters).ToRSA());
+
+                            if (string.IsNullOrEmpty(signature))
+                            {
+                                // todo: this means that we are creating a new signature so this needs to be calculated using a private key
+                            }
+                            else
+                            {
+                                // this means we are decoding an existing token and need to validate that the signature matches the key
+                                if (algorithm.VerifyData(signingBytes, CryptoConfig.MapNameToOID("SHA256"), base64urldecode(signature)))
+                                {
+                                    result = signature;
+                                }
+                                else
+                                {
+                                    throw new Exception("Token is invalid!");
+                                }
+                            }
+                        }
+#endif
 
                         break;
                     }
