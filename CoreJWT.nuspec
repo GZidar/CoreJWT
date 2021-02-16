@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+    <metadata minClientVersion="2.0">
+        <id>CoreJWT2</id>
+        <version>0.2.0-alpha</version>
+        <title>CoreJWT</title>
+        <authors>CoreJWT Contributors</authors>
+        <owners>CoreJWT Contributors</owners>
+        <description>A basic implementation of the JWT standard for .Net Core</description>
+        <language>en-US</language>
+        <projectUrl>https://github.com/GZidar/CoreJWT</projectUrl>
+        <license type="file">LICENSE</license>
+		<icon>icon.png</icon>
+		<copyright>Copyright © 2017 CoreJWT Contributors</copyright>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <dependencies>
+			<dependency id="Newtonsoft.json" version="12.0.3" />
+        </dependencies>
+        <tags>jwt, security, netstandard</tags>
+    </metadata>
+	<files>
+		<!--License-->
+		<file src="LICENSE" target="LICENSE" />
+
+		<!--Icon-->
+		<file src="src/corejwt.png" target="icon.png" />
+
+		<!--Net Standard-->
+		<file src="src/bin/Release/netstandard2.0/CoreJWT.dll" target="lib/netstandard2.0/CoreJWT.dll" />
+		<file src="src/bin/Release/netstandard2.0/CoreJWT.pdb" target="lib/netstandard2.0/CoreJWT.pdb" />
+	</files>
+</package>

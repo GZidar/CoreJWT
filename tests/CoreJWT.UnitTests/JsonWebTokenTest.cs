@@ -71,7 +71,7 @@ namespace CoreJWT.UnitTests
             var result = JsonWebToken.Decode(token, "testSecret");
 
             // Assert
-            Assert.Equal(1, result.Payload.ClaimsSet.Count);
+            Assert.Single(result.Payload.ClaimsSet);
             Assert.Equal(new DateTime(2011, 3, 22, 18, 43, 0), result.Payload.ExpirationTime);
             Assert.Equal("joe", result.Payload.Issuer);
             Assert.Equal("JWT", result.Header.Type);
@@ -138,7 +138,7 @@ namespace CoreJWT.UnitTests
             var result = JsonWebToken.Decode(token);
 
             // Assert
-            Assert.Equal(1, result.Payload.ClaimsSet.Count);
+            Assert.Single(result.Payload.ClaimsSet);
             Assert.Equal(new DateTime(2011,3,22,18,43,0), result.Payload.ExpirationTime);
             Assert.Equal("joe", result.Payload.Issuer);
             Assert.Equal("JWT", result.Header.Type);

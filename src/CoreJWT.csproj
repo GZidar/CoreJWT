@@ -1,36 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net452</TargetFrameworks>
-    <Description>A basic implementation of the JWT standard for .Net Core 2</Description>
-    <Authors>CoreJWT Contributors</Authors>
-    <Company />
-    <Version>0.1.1-alpha</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Copyright>2017 CoreJWT Contributors</Copyright>
-    <PackageProjectUrl>https://github.com/GZidar/CoreJWT</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/GZidar/CoreJWT#license</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/GZidar/CoreJWT</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>jwt .NETCore</PackageTags>
-    <PackageIconUrl>https://github.com/GZidar/CoreJWT/src/corejwt.png</PackageIconUrl>
-    <AssemblyVersion>0.1.1.0</AssemblyVersion>
-    <FileVersion>0.1.1.0</FileVersion>
-    <PackageId>CoreJWT2</PackageId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
-    <DefineConstants>NETFRAMEWORK</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^netstandard\d'))">
-    <DefineConstants>NETSTANDARD</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^netcoreapp\d'))">
-    <DefineConstants>NETCORE</DefineConstants>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	</ItemGroup>
 
 </Project>

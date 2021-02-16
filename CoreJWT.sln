@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreJWT", "src\CoreJWT.csproj", "{502ECB2C-72D9-4237-A053-7EE20D2299CA}"
 EndProject
@@ -14,7 +14,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E25CDBC-0D83-4C3C-9F25-8AB1335D8527}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		CoreJWT.nuspec = CoreJWT.nuspec
 		LICENSE = LICENSE
+		package.bat = package.bat
 		README.md = README.md
 	EndProjectSection
 EndProject
